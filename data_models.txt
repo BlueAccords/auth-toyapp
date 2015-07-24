@@ -1,0 +1,7 @@
+Users
+	name
+	email
+	password_digest
+	member_status
+	has_many :posts
+	
