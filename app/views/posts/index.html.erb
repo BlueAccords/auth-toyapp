@@ -1,1 +1,12 @@
 <h1>All posts</h1>
+<% if signed_in? %>
+	<%= link_to "Create a post", new_post_path %>
+<% end %>
+
+<% @posts.each do |post| %>
+	<h3><%= post.title %></h3>
+	<% if signed_in? %>
+		<h4>Posted by: <%= post.user.username %></h4>
+	<% end %>
+	<p><%= post.body %></p>
+<% end %>
