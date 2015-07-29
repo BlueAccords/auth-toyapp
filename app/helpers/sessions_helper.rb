@@ -12,16 +12,18 @@ module SessionsHelper
 
   def current_user
   	remember_token = User.digest(cookies[:remember_token])
-  	@current_user ||= User.find_by(remember_token: cookies[:remember_token])
+  	@current_user ||= User.find_by(remember_token: remember_token)
   end
 
+  # I don't get it. apparently current_user wasn't being called to maek sure an inital user was stored in @current_user?
   def signed_in?
+  	current_user
   	!@current_user.nil?
   end
 
   def sign_out
   	current_user.update_attribute(:remember_token, User.digest(User.new_remember_token))
-  	cookes.delete(:remember_token)
+  	cookies.delete(:remember_token)
   	self.current_user = nil
   end
 end
